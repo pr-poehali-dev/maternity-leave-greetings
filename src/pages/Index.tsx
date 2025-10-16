@@ -36,12 +36,10 @@ const Index = () => {
     { url: 'https://cdn.poehali.dev/projects/091e2ecd-7770-4ce2-945a-99ec517c62b9/files/c0a56a9a-ca68-465e-a79f-e531d4a0c234.jpg', caption: 'Подарки от коллег' }
   ];
 
-  const gifts = [
-    { name: 'Коляска-трансформер', icon: 'Baby', status: 'purchased' },
-    { name: 'Радионяня премиум', icon: 'Radio', status: 'purchased' },
-    { name: 'Набор детской одежды', icon: 'ShirtIcon', status: 'purchased' },
-    { name: 'Развивающий коврик', icon: 'Sparkles', status: 'pending' },
-    { name: 'Подарочный сертификат', icon: 'Gift', status: 'pending' }
+  const videos = [
+    { title: 'От директора', thumbnail: 'https://cdn.poehali.dev/projects/091e2ecd-7770-4ce2-945a-99ec517c62b9/files/0dc64f6e-e239-4391-90a0-6b3af4f32874.jpg', url: '', duration: '2:30' },
+    { title: 'Команда маркетинга', thumbnail: 'https://cdn.poehali.dev/projects/091e2ecd-7770-4ce2-945a-99ec517c62b9/files/05d38ea2-c90a-42ba-97eb-82f3ea3e11f5.jpg', url: '', duration: '3:15' },
+    { title: 'Отдел разработки', thumbnail: 'https://cdn.poehali.dev/projects/091e2ecd-7770-4ce2-945a-99ec517c62b9/files/c0a56a9a-ca68-465e-a79f-e531d4a0c234.jpg', url: '', duration: '2:45' }
   ];
 
   return (
@@ -73,9 +71,9 @@ const Index = () => {
               <Icon name="Camera" size={18} className="mr-2" />
               Фото
             </TabsTrigger>
-            <TabsTrigger value="gifts" className="font-rubik">
-              <Icon name="Gift" size={18} className="mr-2" />
-              Подарки
+            <TabsTrigger value="videos" className="font-rubik">
+              <Icon name="Video" size={18} className="mr-2" />
+              Видео
             </TabsTrigger>
           </TabsList>
 
@@ -163,68 +161,58 @@ const Index = () => {
                 </Card>
               ))}
             </div>
-            
-            <Card className="mt-6 p-6 bg-secondary/20 backdrop-blur-sm border-2 border-secondary/30">
-              <div className="text-center">
-                <Icon name="Video" size={32} className="mx-auto mb-3 text-secondary" />
-                <h3 className="font-caveat text-3xl font-bold text-foreground mb-2">
-                  Видеопоздравления
-                </h3>
-                <p className="font-rubik text-muted-foreground mb-4">
-                  Видео от команды будет доступно совсем скоро! 🎥
-                </p>
-                <Button variant="secondary" size="lg" className="font-rubik">
-                  <Icon name="Play" size={18} className="mr-2" />
-                  Скоро появится
-                </Button>
-              </div>
-            </Card>
           </TabsContent>
 
-          <TabsContent value="gifts" className="animate-fade-in">
-            <Card className="p-8 bg-white/90 backdrop-blur-sm border-2 border-primary/20">
+          <TabsContent value="videos" className="animate-fade-in">
+            <Card className="p-8 bg-white/90 backdrop-blur-sm border-2 border-primary/20 mb-6">
               <h2 className="font-caveat text-4xl font-bold text-center text-foreground mb-8">
-                Список подарков от коллег 🎁
+                Видеопоздравления от коллег 🎥
               </h2>
               
-              <div className="space-y-4">
-                {gifts.map((gift, index) => (
-                  <div 
+              <div className="grid gap-6 md:grid-cols-3">
+                {videos.map((video, index) => (
+                  <Card 
                     key={index}
-                    className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 hover:shadow-md transition-shadow"
+                    className="overflow-hidden bg-white border-2 border-secondary/30 hover:shadow-xl transition-all cursor-pointer group"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
-                        <Icon name={gift.icon} size={24} className="text-primary" />
+                    <div className="relative">
+                      <img 
+                        src={video.thumbnail} 
+                        alt={video.title}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
+                        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Icon name="Play" size={32} className="text-secondary ml-1" />
+                        </div>
                       </div>
-                      <span className="font-rubik text-lg text-foreground font-medium">
-                        {gift.name}
-                      </span>
+                      <div className="absolute bottom-2 right-2 bg-black/70 px-2 py-1 rounded text-white text-sm font-rubik">
+                        {video.duration}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {gift.status === 'purchased' ? (
-                        <div className="flex items-center gap-2 text-green-600">
-                          <Icon name="CheckCircle" size={20} />
-                          <span className="font-rubik text-sm font-medium">Куплено</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 text-amber-600">
-                          <Icon name="Clock" size={20} />
-                          <span className="font-rubik text-sm font-medium">Планируется</span>
-                        </div>
-                      )}
+                    <div className="p-4">
+                      <h3 className="font-caveat text-2xl font-bold text-center text-foreground">
+                        {video.title}
+                      </h3>
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
+            </Card>
 
-              <div className="mt-8 p-6 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg text-center">
-                <p className="font-caveat text-2xl text-foreground mb-2">
-                  Все подарки с любовью! 💝
+            <Card className="p-6 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm border-2 border-primary/30">
+              <div className="text-center">
+                <Icon name="Upload" size={32} className="mx-auto mb-3 text-primary" />
+                <h3 className="font-caveat text-3xl font-bold text-foreground mb-2">
+                  Добавить видео
+                </h3>
+                <p className="font-rubik text-muted-foreground mb-4">
+                  Загрузите свое видеопоздравление для коллеги 💕
                 </p>
-                <p className="font-rubik text-sm text-muted-foreground">
-                  Команда всегда рядом и поддерживает тебя
-                </p>
+                <Button variant="default" size="lg" className="font-rubik">
+                  <Icon name="VideoIcon" size={18} className="mr-2" />
+                  Загрузить видео
+                </Button>
               </div>
             </Card>
           </TabsContent>
